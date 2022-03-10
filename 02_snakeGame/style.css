@@ -35,8 +35,16 @@ h1, h2, h3, h4, h5 {
     box-sizing: border-box;
 }
 
-.snake {
+.snake-head {
     background-color: greenyellow;
+}
+
+.snake-body {
+    background-color: green;
+}
+
+.snake-tail {
+background-color: yellowgreen;
 }
 
 .apple {

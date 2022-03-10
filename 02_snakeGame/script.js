@@ -8,6 +8,7 @@
 7. partir de una velocidad mas alta -- done
 8. funcion de velocidad
 9. Añadir reglas de moverse hacia la cola
+10. restriccion de generacion de fruta donde hay serpiente
 
 
 */
@@ -80,10 +81,18 @@ function movimientoSerpiente() {
   for (let i = 0; i < snake.length; i++) {
     if (i != snake.length - 1) {
       // asignar casilla de color
-      tableroArray[snake[i][0]][snake[i][1]].classList.add('snake');
+      if (i == 0) {
+        tableroArray[snake[i][0]][snake[i][1]].classList.add('snake-head');
+      } else if (i < snake.length - 2) {
+        tableroArray[snake[i][0]][snake[i][1]].classList.add('snake-body');
+      } else {
+        tableroArray[snake[i][0]][snake[i][1]].classList.add('snake-tail');
+      }
     } else {
       // quitar casilla de color
-      tableroArray[snake[i][0]][snake[i][1]].classList.remove('snake');
+      tableroArray[snake[i][0]][snake[i][1]].classList.remove('snake-head');
+      tableroArray[snake[i][0]][snake[i][1]].classList.remove('snake-body');
+      tableroArray[snake[i][0]][snake[i][1]].classList.remove('snake-tail');
     }
   }
 
