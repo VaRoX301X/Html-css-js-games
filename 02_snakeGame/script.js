@@ -5,7 +5,9 @@
 4. guardar posicion de estrella
 5. paaaredes
 6. cola
-7. partir de una velocidad mas alta
+7. partir de una velocidad mas alta -- done
+8. funcion de velocidad
+9. Añadir reglas de moverse hacia la cola
 
 
 */
@@ -26,6 +28,8 @@ while (tablero.length) tableroArray.push(tablero.splice(0, cantidadCeldas));
 console.table(tableroArray);
 var posicionActualX = 0;
 var posicionActualY = 0;
+var snake = [[0, 0]];
+snake.push([0, 0]);
 var posicionFrutaX = 0;
 var posicionFrutaY = 0;
 var movimientoX = 0;
@@ -40,11 +44,7 @@ gameStart();
 
 function game() {
   // Y, X
-  tableroArray[posicionActualY][posicionActualX].classList.remove('snake');
-  posicionActualX = posicionActualX + movimientoX;
-  posicionActualY = posicionActualY + movimientoY;
-  reglas();
-  tableroArray[posicionActualY][posicionActualX].classList.add('snake');
+  movimientoSerpiente();
   if (posicionActualX == posicionFrutaX && posicionActualY == posicionFrutaY) {
     puntoFruta();
   }
@@ -56,10 +56,50 @@ function game() {
 function puntoFruta() {
   puntuacion = puntuacion + 1;
   score.innerHTML = puntuacion;
+  ampliarSerpiente();
   tableroArray[posicionFrutaY][posicionFrutaX].classList.remove('apple');
   posicionFrutaX = Math.floor(Math.random() * cantidadCeldas);
   posicionFrutaY = Math.floor(Math.random() * cantidadCeldas);
   tableroArray[posicionFrutaY][posicionFrutaX].classList.add('apple');
+}
+
+// Función para ampliar la serpiente
+function ampliarSerpiente() {
+  snake.push([posicionFrutaY, posicionFrutaX]);
+}
+
+function movimientoSerpiente() {
+  // calcular nueva posicion
+  posicionActualX = posicionActualX + movimientoX;
+  posicionActualY = posicionActualY + movimientoY;
+  reglas();
+  for (let i = snake.length - 1; i > 0; i--) {
+    snake[i] = snake[i - 1];
+  }
+  snake[0] = [posicionActualY, posicionActualX];
+  for (let i = 0; i < snake.length; i++) {
+    if (i != snake.length - 1) {
+      // asignar casilla de color
+      tableroArray[snake[i][0]][snake[i][1]].classList.add('snake');
+    } else {
+      // quitar casilla de color
+      tableroArray[snake[i][0]][snake[i][1]].classList.remove('snake');
+    }
+  }
+
+  // let aux = [posicionActualY, posicionActualY];
+  // tableroArray[posicionActualY][posicionActualX].classList.remove('snake');
+
+  // snake[0][0] = posicionActualY;
+  // snake[0][1] = posicionActualX;
+  // tableroArray[snake[0][0]][snake[0][1]].classList.add('snake');
+  // if (snake.length > 1) {
+  //   for (let i = 1; i < snake.length; i++) {
+  //     let aux2 = snake[i];
+  //     snake[i] = aux;
+  //     tableroArray[snake[i][0]][snake[i][1]].classList.add('snake');
+  //   }
+  // }
 }
 
 function createBoard() {
@@ -75,11 +115,13 @@ function createBoard() {
 function gameStart() {
   posicionActualX = cantidadCeldas / 2;
   posicionActualY = cantidadCeldas / 2;
+  snake[0] = [posicionActualY, posicionActualX];
+  console.log(snake);
   posicionFrutaX = Math.floor(Math.random() * cantidadCeldas);
   posicionFrutaY = Math.floor(Math.random() * cantidadCeldas);
-  tableroArray[posicionActualY][posicionActualX].classList.add('snake');
+  tableroArray[snake[0][0]][snake[0][1]].classList.add('snake');
   tableroArray[posicionFrutaY][posicionFrutaX].classList.add('apple');
-  gameInterval = setInterval(game, 1000);
+  gameInterval = setInterval(game, 500);
   setInterval(counter, 100);
 }
 
@@ -93,7 +135,7 @@ function reglas() {
   } else if (posicionActualX < 0) {
     posicionActualX = cantidadCeldas - 1;
   } else {
-    console.log(posicionActualY, posicionActualX);
+    // console.log(posicionActualY, posicionActualX);
   }
 }
 
@@ -132,11 +174,11 @@ document.addEventListener('keypress', (e) => {
       if (timeCounter > 5) {
         console.log('Menos velocidad');
         timeCounter = 0;
-        if (velocidad != 800) {
-          velocidad = velocidad + 800;
+        if (velocidad != 300) {
+          velocidad = velocidad + 300;
         }
         velocimetro.innerHTML = (
-          Math.round((1 - velocidad / 1000) * 100) / 100
+          Math.round((0.5 + velocidad / 1000) * 100) / 100
         ).toFixed(2);
         updateInterval();
       }
@@ -146,11 +188,11 @@ document.addEventListener('keypress', (e) => {
       if (timeCounter > 5) {
         console.log('Más velocidad');
         timeCounter = 0;
-        if (velocidad != -800) {
-          velocidad = velocidad - 800;
+        if (velocidad != -300) {
+          velocidad = velocidad - 300;
         }
         velocimetro.innerHTML = (
-          Math.round((1 - velocidad / 1000) * 100) / 100
+          Math.round((0.5 + velocidad / 1000) * 100) / 100
         ).toFixed(2);
         updateInterval();
       }
@@ -161,7 +203,7 @@ document.addEventListener('keypress', (e) => {
 
 function updateInterval() {
   clearInterval(gameInterval);
-  gameInterval = setInterval(game, 1000 + velocidad);
+  gameInterval = setInterval(game, 500 + velocidad);
 }
 
 function counter() {
