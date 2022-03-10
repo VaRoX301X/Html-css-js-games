@@ -3,7 +3,7 @@
 2. score modificado por velocidad
 3. generar estrella nueva
 4. guardar posicion de estrella
-5. paredes
+5. paaaredes
 6. cola
 7. partir de una velocidad mas alta
 

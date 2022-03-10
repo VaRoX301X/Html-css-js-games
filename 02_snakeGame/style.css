@@ -36,12 +36,12 @@ h1, h2, h3, h4, h5 {
 }
 
 .snake {
-    background-color: blue;
+    background-color: greenyellow;
 }
 
 .apple {
-    background-color: yellow;
-    border-radius: 50%;
+    background-image: url(apple.png);
+    border-radius: 20%;
 }
 
 #velocidad {
