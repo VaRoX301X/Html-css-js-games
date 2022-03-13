@@ -7,9 +7,24 @@ body {
 }
 
 .main {
+    margin: 2;
     border: 1px solid black;
     padding: 10px;
-    
+    margin: 2em;
+    background-color: #dedede;
+}
+.div-1 {
+    height: 100%;
+    width: 29%;
+    background-color: rgb(42, 255, 113);
+    display: inline-block;
+    border: 1px solid rgb(229, 255, 0);
+    box-sizing: border-box;
+}
+.div-2 {
+    height: 100%;
+    width: 69%;
+    display: inline-block;
 }
 
 h1, h2, h3, h4, h5 {
@@ -24,6 +39,7 @@ h1, h2, h3, h4, h5 {
     width: 400px;
     height: 400px;
     border: 1px solid purple;
+    background-color: azure;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -31,20 +47,54 @@ h1, h2, h3, h4, h5 {
 .grid div {
     /*width: 20px;
     height: 20px; */
+}
+.celda {
+
+}
+.gridMode {
     border: 1px solid rgba(200, 200, 200, 0.6);
     box-sizing: border-box;
 }
 
-.snake-head {
-    background-color: greenyellow;
+.snake-head-W {
+    background-image: url(snake-head.png);
+}
+.snake-head-A {
+    background-image: url(snake-head.png);
+    transform: rotate(270deg);
+}
+.snake-head-S {
+    background-image: url(snake-head.png);
+    transform: rotate(180deg);
+}
+.snake-head-D {
+    background-image: url(snake-head.png);
+    transform: rotate(90deg);
+}
+
+.snake-head-lose {
+    background-color: #ff0000 !important;
+    background-image: none;
 }
 
 .snake-body {
     background-color: green;
+    background-image: none;
+}
+
+.snake-body-lose {
+    background-color: #990000 !important;
+    background-image: none;
 }
 
 .snake-tail {
 background-color: yellowgreen;
+background-image: none;
+}
+
+.snake-tail-lose {
+    background-color: #ff3300 !important;
+    background-image: none;
 }
 
 .apple {
